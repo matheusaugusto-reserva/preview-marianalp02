@@ -807,6 +807,8 @@ function setupPyramidJourney(useGsap) {
 
   let activeLevel = null;
   const totalLevels = cards.length; // 7
+  const mobileStepCooldownMs = 140;
+  let mobileStepLockUntil = 0;
 
   /* ── apply active / past states ── */
   const setActiveLevel = (level) => {
@@ -839,6 +841,24 @@ function setupPyramidJourney(useGsap) {
   const levelByProgress = (progress) => {
     const index = Math.min(totalLevels - 1, Math.floor(progress * totalLevels));
     return String(index + 1); /* 1→7 conforme scroll avança */
+  };
+
+  const setActiveLevelStepwise = (targetLevel) => {
+    const target = Number(targetLevel);
+    const current = Number(activeLevel || 1);
+
+    if (target === current) {
+      return;
+    }
+
+    const now = performance.now();
+    if (now < mobileStepLockUntil) {
+      return;
+    }
+
+    const next = target > current ? current + 1 : current - 1;
+    setActiveLevel(String(Math.max(1, Math.min(totalLevels, next))));
+    mobileStepLockUntil = now + mobileStepCooldownMs;
   };
 
   const updateMobileCardHeight = () => {
@@ -941,7 +961,7 @@ function setupPyramidJourney(useGsap) {
     }
 
     /* mobile: keep pyramid pinned while cards switch below it */
-    const mobilePinLength = () => `+=${window.innerHeight * (totalLevels * 0.62 + 0.6)}`;
+    const mobilePinLength = () => `+=${window.innerHeight * (totalLevels * 0.74 + 0.8)}`;
     const stageCenters = [475, 407, 338, 270, 201, 133, 66];
 
     ScrollTrigger.create({
@@ -950,14 +970,14 @@ function setupPyramidJourney(useGsap) {
       end: mobilePinLength,
       pin: true,
       pinSpacing: true,
-      scrub: 0.46,
+      scrub: 0.62,
       anticipatePin: 2,
       fastScrollEnd: true,
       invalidateOnRefresh: true,
       onUpdate: (self) => {
         const progress = self.progress;
         const eased = progress * progress * (3 - 2 * progress);
-        setActiveLevel(levelByProgress(progress));
+        setActiveLevelStepwise(levelByProgress(progress));
 
         if (visualGroup) {
           const track = eased * (stageCenters.length - 1);
@@ -998,9 +1018,9 @@ function setupPyramidJourney(useGsap) {
   const updateByScroll = () => {
     if (isMobileLayout) {
       const start = section.offsetTop - (window.innerHeight * 0.22);
-      const range = window.innerHeight * 1.9;
+      const range = window.innerHeight * 2.25;
       const progress = (window.scrollY - start) / range;
-      setActiveLevel(levelByProgress(Math.max(0, Math.min(1, progress))));
+      setActiveLevelStepwise(levelByProgress(Math.max(0, Math.min(1, progress))));
       return;
     }
 

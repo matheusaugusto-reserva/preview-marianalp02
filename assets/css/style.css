@@ -5452,20 +5452,20 @@ section.about .about__media {
 section.about .about__photo-frame {
   width: 100%;
   max-width: 260px;
-  aspect-ratio: 4 / 5;
   border-radius: 22px;
   overflow: hidden;
   padding: 0;
   background: transparent;
   box-shadow: none;
+  line-height: 0;
 }
 
 section.about .about__photo {
   width: 100%;
-  height: 100%;
+  height: auto;
   border-radius: 22px;
-  object-fit: contain;
-  object-position: center center;
+  object-fit: cover;
+  object-position: center top;
   display: block;
   background: transparent;
 }
@@ -6395,4 +6395,18 @@ section.guarantee .guarantee__seal-image {
     width: 168px !important;
     max-width: 82vw !important;
   }
+}
+
+/* =====================================================
+   ABOUT PHOTO ROUNDED LOCK V6.37
+   ===================================================== */
+section.about .about__photo-frame {
+  border-radius: 24px !important;
+  overflow: hidden !important;
+}
+
+section.about .about__photo,
+section.about .about__photo-fallback {
+  border-radius: 24px !important;
+  clip-path: inset(0 round 24px);
 }
