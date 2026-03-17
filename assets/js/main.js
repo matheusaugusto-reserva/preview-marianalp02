@@ -1,7 +1,6 @@
 ﻿document.addEventListener('DOMContentLoaded', () => {
   setupFaqAccordion();
   setupSmoothAnchors();
-  setupScrollProgress();
   setupBlueprintDottedSurface();
   setupBlueprintOfferWaveShader();
 
@@ -65,23 +64,6 @@ function setupSmoothAnchors() {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
-}
-
-function setupScrollProgress() {
-  const progressBar = document.querySelector('.scroll-progress');
-  if (!progressBar) {
-    return;
-  }
-
-  const update = () => {
-    const height = document.documentElement.scrollHeight - window.innerHeight;
-    const ratio = height > 0 ? window.scrollY / height : 0;
-    progressBar.style.transform = `scaleX(${Math.max(0, Math.min(1, ratio))})`;
-  };
-
-  window.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update);
-  update();
 }
 
 function setupHeroAnimation() {

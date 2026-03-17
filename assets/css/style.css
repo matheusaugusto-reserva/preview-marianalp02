@@ -213,21 +213,6 @@ em { font-style: italic; color: var(--accent); }
 }
 
 /* =====================================================
-   SCROLL PROGRESS BAR
-   ===================================================== */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  transform-origin: left;
-  transform: scaleX(0);
-  background: linear-gradient(90deg, var(--primary-400), var(--accent));
-  z-index: 100;
-}
-
-/* =====================================================
    TOPBAR
    ===================================================== */
 .topbar {
@@ -2716,11 +2701,6 @@ body {
   -webkit-backdrop-filter: blur(18px);
 }
 
-/* ─── Scroll progress ─── */
-.scroll-progress {
-  background: linear-gradient(90deg, var(--primary-400), var(--accent));
-}
-
 /* ─── Headings keep foreground color ─── */
 h1, h2, h3, h4 { color: var(--foreground); }
 em { color: #d4ad69; }
@@ -3205,10 +3185,6 @@ em,
 
 .footer__brand {
   color: rgba(185, 139, 97, 0.9);
-}
-
-.scroll-progress {
-  background: linear-gradient(90deg, #2e4157 0%, #b98b61 100%);
 }
 
 /* =====================================================
@@ -3835,6 +3811,8 @@ h4,
 
 .pain-points .section-footnote {
   color: #e4ecf4 !important;
+  font-size: 1.16rem;
+  line-height: 1.72;
 }
 
 .pain-points .section-footnote strong {
@@ -3850,6 +3828,10 @@ h4,
   .pain-points .pain-points__grid {
     padding: 0;
     border-radius: 0;
+  }
+
+  .pain-points .section-footnote {
+    font-size: 1.08rem;
   }
 
   .pain-points .section-header h2 {
@@ -5188,6 +5170,183 @@ section.blueprint .container {
 }
 
 /* =====================================================
+   HERO NEON BEAM BOOST FINAL LOCK V6.31B
+   ===================================================== */
+.hero-neon-orb__beam-light {
+  width: 84px !important;
+  height: 5px !important;
+  margin-left: -42px !important;
+  opacity: 1 !important;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.38) 18%,
+    rgba(255, 255, 255, 0.98) 68%,
+    rgba(255, 255, 255, 1) 100%
+  ) !important;
+  box-shadow:
+    0 0 20px 5px rgba(255, 255, 255, 0.86),
+    0 0 46px 11px rgba(255, 255, 255, 0.5),
+    0 0 88px 18px rgba(185, 139, 97, 0.2) !important;
+}
+
+@media (max-width: 820px) {
+  .hero-neon-orb__beam-light {
+    width: 66px !important;
+    height: 4.5px !important;
+    margin-left: -33px !important;
+    opacity: 0.96 !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero-neon-orb__beam-light {
+    width: 58px !important;
+    height: 4px !important;
+    margin-left: -29px !important;
+    opacity: 0.94 !important;
+  }
+}
+
+/* =====================================================
+   HERO NEON BEAM BOOST V6.31
+   Brilho giratorio mais forte no bloco 1
+   ===================================================== */
+.hero-neon-orb__beam-light {
+  width: 84px !important;
+  height: 5px !important;
+  margin-left: -42px !important;
+  opacity: 1 !important;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.38) 18%,
+    rgba(255, 255, 255, 0.98) 68%,
+    rgba(255, 255, 255, 1) 100%
+  ) !important;
+  box-shadow:
+    0 0 20px 5px rgba(255, 255, 255, 0.86),
+    0 0 46px 11px rgba(255, 255, 255, 0.5),
+    0 0 88px 18px rgba(185, 139, 97, 0.2) !important;
+}
+
+@media (max-width: 820px) {
+  .hero-neon-orb__beam-light {
+    width: 66px !important;
+    height: 4.5px !important;
+    margin-left: -33px !important;
+    box-shadow:
+      0 0 16px 4px rgba(255, 255, 255, 0.8),
+      0 0 36px 9px rgba(255, 255, 255, 0.44),
+      0 0 70px 14px rgba(185, 139, 97, 0.16) !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero-neon-orb__beam-light {
+    width: 58px !important;
+    height: 4px !important;
+    margin-left: -29px !important;
+  }
+}
+
+.hero__title-highlight {
+  color: #b98b61 !important;
+  font-style: normal;
+}
+
+/* =====================================================
+   HERO MOBILE ORBS VISIBILITY FIX V6.30
+   Reforca os circulos do bloco 1 no mobile, mantendo sutil
+   ===================================================== */
+@media (max-width: 820px) {
+  .hero__neon {
+    display: block !important;
+    opacity: 1 !important;
+  }
+
+  .hero__neon::after {
+    background:
+      radial-gradient(
+        110% 84% at 50% 55%,
+        rgba(243, 239, 235, 0.22) 0%,
+        rgba(243, 239, 235, 0.44) 72%,
+        rgba(243, 239, 235, 0.58) 100%
+      ) !important;
+  }
+
+  .hero-neon-orb {
+    opacity: 0.64 !important;
+  }
+
+  .hero-neon-orb__disk {
+    border: 1px solid rgba(46, 65, 87, 0.2) !important;
+    box-shadow:
+      0 0 28px 2px rgba(46, 65, 87, 0.12),
+      0 0 56px 5px rgba(46, 65, 87, 0.08),
+      inset 0 0 36px 1px rgba(185, 139, 97, 0.12) !important;
+  }
+
+  .hero-neon-orb--top-left {
+    top: -30% !important;
+    left: -22% !important;
+    width: min(84vw, 680px) !important;
+  }
+
+  .hero-neon-orb--bottom-center {
+    bottom: -46% !important;
+    width: min(110vw, 900px) !important;
+  }
+
+  .hero-neon-orb--top-right {
+    top: -28% !important;
+    right: -20% !important;
+    width: min(76vw, 620px) !important;
+  }
+
+  .hero-neon-orb--bottom-right {
+    bottom: -28% !important;
+    right: -16% !important;
+    width: min(76vw, 640px) !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero-neon-orb {
+    opacity: 0.68 !important;
+  }
+
+  .hero-neon-orb__beam-light {
+    width: 52px !important;
+    margin-left: -26px !important;
+    opacity: 0.88 !important;
+  }
+
+  .hero-neon-orb--top-left {
+    top: -24% !important;
+    left: -26% !important;
+    width: min(92vw, 560px) !important;
+  }
+
+  .hero-neon-orb--bottom-center {
+    bottom: -36% !important;
+    width: min(128vw, 760px) !important;
+  }
+
+  .hero-neon-orb--top-right {
+    top: -20% !important;
+    right: -24% !important;
+    width: min(86vw, 560px) !important;
+  }
+
+  .hero-neon-orb--bottom-right {
+    bottom: -22% !important;
+    right: -20% !important;
+    width: min(84vw, 560px) !important;
+  }
+}
+
+/* =====================================================
    PYRAMID SCROLL FLUIDITY FIX V6.30
    Reduce stutter when entering pinned section
    ===================================================== */
@@ -5295,28 +5454,27 @@ section.about .about__photo-frame {
   max-width: 260px;
   aspect-ratio: 4 / 5;
   border-radius: 22px;
-  padding: 5px;
-  background: linear-gradient(160deg, rgba(46, 65, 87, 0.9), rgba(185, 139, 97, 0.82));
-  box-shadow:
-    0 20px 34px rgba(26, 41, 56, 0.22),
-    0 0 0 1px rgba(255, 255, 255, 0.44) inset;
+  overflow: hidden;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 section.about .about__photo {
   width: 100%;
   height: 100%;
-  border-radius: 18px;
-  object-fit: cover;
-  object-position: center top;
+  border-radius: 22px;
+  object-fit: contain;
+  object-position: center center;
   display: block;
-  background: linear-gradient(145deg, #e3ddd6, #d6cec5);
+  background: transparent;
 }
 
 section.about .about__photo-fallback {
   display: none;
   width: 100%;
   height: 100%;
-  border-radius: 18px;
+  border-radius: 22px;
   place-items: center;
   background: linear-gradient(160deg, #eef1f4, #dbe2e9);
   color: #2e4157;
@@ -5414,6 +5572,13 @@ section.guarantee .guarantee__icon-wrap {
   position: relative;
   z-index: 1;
   flex-shrink: 0;
+}
+
+section.guarantee .guarantee__seal-image {
+  display: block;
+  width: 126px;
+  height: auto;
+  filter: drop-shadow(0 12px 24px rgba(10, 18, 26, 0.34));
 }
 
 section.guarantee .guarantee__seal-3d {
@@ -5514,13 +5679,8 @@ section.guarantee .guarantee__body p {
     text-align: center !important;
   }
 
-  section.guarantee .guarantee__seal-3d {
+  section.guarantee .guarantee__seal-image {
     width: 112px;
-    height: 112px;
-  }
-
-  section.guarantee .guarantee__seal-number {
-    font-size: 2.2rem;
   }
 }
 
@@ -5981,4 +6141,258 @@ section.blueprint .container {
   box-shadow:
     0 14px 30px rgba(185, 139, 97, 0.38),
     0 0 0 1px rgba(169, 124, 82, 0.45) inset !important;
+}
+
+/* =====================================================
+   HERO NEON BEAM BOOST ULTIMATE LOCK V6.31C
+   ===================================================== */
+.hero-neon-orb__beam-light {
+  width: 86px !important;
+  height: 5px !important;
+  margin-left: -43px !important;
+  opacity: 1 !important;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.42) 16%,
+    rgba(255, 255, 255, 0.99) 68%,
+    rgba(255, 255, 255, 1) 100%
+  ) !important;
+  box-shadow:
+    0 0 22px 5px rgba(255, 255, 255, 0.9),
+    0 0 52px 12px rgba(255, 255, 255, 0.52),
+    0 0 94px 19px rgba(185, 139, 97, 0.22) !important;
+}
+
+@media (max-width: 820px) {
+  .hero-neon-orb__beam-light {
+    width: 68px !important;
+    height: 4.5px !important;
+    margin-left: -34px !important;
+    opacity: 0.97 !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero-neon-orb__beam-light {
+    width: 60px !important;
+    height: 4px !important;
+    margin-left: -30px !important;
+    opacity: 0.95 !important;
+  }
+}
+
+/* =====================================================
+   HERO NEON FREQUENCY + POWER LOCK V6.31D
+   Mais frequencia de passagem + brilho mais forte
+   ===================================================== */
+.hero-neon-orb__beam {
+  opacity: 1 !important;
+}
+
+.hero-neon-orb__beam-light {
+  width: 94px !important;
+  height: 5.5px !important;
+  margin-left: -47px !important;
+  opacity: 1 !important;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.5) 14%,
+    rgba(255, 255, 255, 1) 66%,
+    rgba(255, 255, 255, 1) 100%
+  ) !important;
+  box-shadow:
+    0 0 26px 6px rgba(255, 255, 255, 0.96),
+    0 0 60px 14px rgba(255, 255, 255, 0.62),
+    0 0 108px 22px rgba(185, 139, 97, 0.3) !important;
+}
+
+.hero-neon-orb__beam--spin-6 {
+  animation: hero-neon-spin 3.6s linear infinite !important;
+}
+
+.hero-neon-orb__beam--spin-7-reverse {
+  animation: hero-neon-spin-reverse 4.2s linear infinite !important;
+}
+
+.hero-neon-orb__beam--spin-8 {
+  animation: hero-neon-spin 4.8s linear infinite !important;
+}
+
+.hero-neon-orb__beam--spin-10-reverse {
+  animation: hero-neon-spin-reverse 5.6s linear infinite !important;
+}
+
+@media (max-width: 820px) {
+  .hero-neon-orb__beam-light {
+    width: 74px !important;
+    height: 4.8px !important;
+    margin-left: -37px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero-neon-orb__beam-light {
+    width: 64px !important;
+    height: 4.2px !important;
+    margin-left: -32px !important;
+  }
+}
+
+/* =====================================================
+   HERO CTA ANIMATED HIGHLIGHT V6.32
+   ===================================================== */
+.hero .hero__cta {
+  animation: heroCtaPulseGlow 1.9s ease-in-out infinite !important;
+}
+
+.hero .hero__cta::before {
+  background-size: 260% 100% !important;
+  animation: heroCtaGradientFlow 2.4s linear infinite !important;
+}
+
+@keyframes heroCtaPulseGlow {
+  0%, 100% {
+    box-shadow:
+      0 10px 24px rgba(185, 139, 97, 0.3),
+      0 0 0 1px rgba(169, 124, 82, 0.34) inset !important;
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow:
+      0 16px 34px rgba(185, 139, 97, 0.5),
+      0 0 0 1px rgba(169, 124, 82, 0.52) inset !important;
+    filter: brightness(1.08);
+  }
+}
+
+@keyframes heroCtaGradientFlow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero .hero__cta,
+  .hero .hero__cta::before {
+    animation: none !important;
+  }
+}
+
+/* =====================================================
+   PYRAMID MOBILE TEXT SIZE BOOST V6.33
+   ===================================================== */
+@media (max-width: 820px) {
+  section.pyramid-journey .pyramid-layer-num {
+    font-size: 12px !important;
+  }
+
+  section.pyramid-journey .pyramid-layer-name {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+  }
+}
+
+@media (max-width: 560px) {
+  section.pyramid-journey .pyramid-layer-num {
+    font-size: 11px !important;
+  }
+
+  section.pyramid-journey .pyramid-layer-name {
+    font-size: 10.2px !important;
+  }
+}
+
+/* =====================================================
+   OFFER TOP SPACING TUNE V6.34
+   ===================================================== */
+.offer.section {
+  padding-top: 64px !important;
+}
+
+@media (max-width: 820px) {
+  .offer.section {
+    padding-top: 52px !important;
+  }
+}
+
+/* =====================================================
+   GUARANTEE SEAL SIZE + SOFT MOTION V6.35
+   ===================================================== */
+section.guarantee .guarantee__seal-image {
+  width: 170px !important;
+  max-width: 38vw;
+  height: auto;
+  transform-origin: 50% 55%;
+  will-change: transform;
+  filter: drop-shadow(0 12px 26px rgba(10, 18, 26, 0.32));
+  animation: guaranteeSealFloat 5.4s ease-in-out infinite;
+}
+
+@keyframes guaranteeSealFloat {
+  0% {
+    transform: translateY(0) rotate(-1.2deg) scale(1);
+  }
+  50% {
+    transform: translateY(-6px) rotate(1.2deg) scale(1.015);
+  }
+  100% {
+    transform: translateY(0) rotate(-1.2deg) scale(1);
+  }
+}
+
+@media (max-width: 820px) {
+  section.guarantee .guarantee__seal-image {
+    width: 146px !important;
+    max-width: 52vw;
+  }
+}
+
+@media (max-width: 560px) {
+  section.guarantee .guarantee__seal-image {
+    width: 132px !important;
+    max-width: 60vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  section.guarantee .guarantee__seal-image {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* =====================================================
+   GUARANTEE SEAL EMPHASIS SIZE V6.36
+   ===================================================== */
+section.guarantee .guarantee__icon-wrap {
+  min-width: 230px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+section.guarantee .guarantee__seal-image {
+  width: 230px !important;
+  max-width: none !important;
+  filter: drop-shadow(0 14px 30px rgba(10, 18, 26, 0.34));
+}
+
+@media (max-width: 820px) {
+  section.guarantee .guarantee__icon-wrap {
+    min-width: 0;
+  }
+
+  section.guarantee .guarantee__seal-image {
+    width: 190px !important;
+    max-width: 78vw !important;
+  }
+}
+
+@media (max-width: 560px) {
+  section.guarantee .guarantee__seal-image {
+    width: 168px !important;
+    max-width: 82vw !important;
+  }
 }
