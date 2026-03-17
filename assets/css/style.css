@@ -5997,10 +5997,12 @@ section.blueprint .section-header p {
     opacity: 0.08 !important;
     visibility: visible !important;
     transform: translateX(106%) scale(0.96) !important;
+    /* transição mais rápida para combinar com o ritmo do scroll mobile (cooldown 80ms);
+       ainda fluida, mas cada card slide completa antes do próximo já estar pela metade */
     transition:
-      opacity 0.4s ease,
-      transform 0.46s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.35s ease !important;
+      opacity 0.28s ease,
+      transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.25s ease !important;
     pointer-events: none !important;
   }
 

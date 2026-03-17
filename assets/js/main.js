@@ -807,7 +807,9 @@ function setupPyramidJourney(useGsap) {
 
   let activeLevel = null;
   const totalLevels = cards.length; // 7
-  const mobileStepCooldownMs = 140;
+  // cooldown reduzido para garantir que todas as 7 etapas sejam visitadas
+  // fórmula: cooldown < scrub_ms / totalLevels  →  80 < 900/7 ≈ 128 ✓
+  const mobileStepCooldownMs = 80;
   let mobileStepLockUntil = 0;
 
   /* ── apply active / past states ── */
@@ -970,9 +972,12 @@ function setupPyramidJourney(useGsap) {
       end: mobilePinLength,
       pin: true,
       pinSpacing: true,
-      scrub: 0.62,
+      // scrub maior garante janela suficiente para o stepwise percorrer todas as 7 etapas
+      // (7 etapas × 80ms cooldown = 560ms < 900ms scrub window)
+      scrub: 0.9,
       anticipatePin: 2,
-      fastScrollEnd: true,
+      // NÃO usar fastScrollEnd: ele força o scrub a completar instantaneamente na
+      // rolagem rápida, interrompendo os onUpdate que o stepwise precisa
       invalidateOnRefresh: true,
       onUpdate: (self) => {
         const progress = self.progress;
