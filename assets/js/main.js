@@ -807,10 +807,12 @@ function setupPyramidJourney(useGsap) {
 
   let activeLevel = null;
   const totalLevels = cards.length; // 7
-  // cooldown reduzido para garantir que todas as 7 etapas sejam visitadas
-  // fórmula: cooldown < scrub_ms / totalLevels  →  80 < 900/7 ≈ 128 ✓
-  const mobileStepCooldownMs = 80;
-  let mobileStepLockUntil = 0;
+
+  /* ── RAF-driven mobile step (independe do timing do GSAP onUpdate) ── */
+  let mobileTargetLevel = 1;
+  let mobileRafId = null;
+  let mobileLastStepMs = 0;
+  const MOBILE_STEP_MS = 140; /* ms entre cada avanço de nível no mobile */
 
   /* ── apply active / past states ── */
   const setActiveLevel = (level) => {
@@ -845,22 +847,28 @@ function setupPyramidJourney(useGsap) {
     return String(index + 1); /* 1→7 conforme scroll avança */
   };
 
-  const setActiveLevelStepwise = (targetLevel) => {
-    const target = Number(targetLevel);
+  /* tick do RAF: avança um nível por vez em direção ao alvo */
+  const mobileRafTick = (timestamp) => {
     const current = Number(activeLevel || 1);
-
-    if (target === current) {
+    if (current === mobileTargetLevel) {
+      mobileRafId = null; /* alvo atingido — para o loop */
       return;
     }
-
-    const now = performance.now();
-    if (now < mobileStepLockUntil) {
-      return;
+    if (timestamp - mobileLastStepMs >= MOBILE_STEP_MS) {
+      const next = mobileTargetLevel > current ? current + 1 : current - 1;
+      setActiveLevel(String(Math.max(1, Math.min(totalLevels, next))));
+      mobileLastStepMs = timestamp;
     }
+    mobileRafId = requestAnimationFrame(mobileRafTick);
+  };
 
-    const next = target > current ? current + 1 : current - 1;
-    setActiveLevel(String(Math.max(1, Math.min(totalLevels, next))));
-    mobileStepLockUntil = now + mobileStepCooldownMs;
+  /* atualiza o alvo e garante que o loop esteja rodando */
+  const triggerMobileStep = (level) => {
+    const target = Math.max(1, Math.min(totalLevels, Number(level)));
+    mobileTargetLevel = target;
+    if (!mobileRafId) {
+      mobileRafId = requestAnimationFrame(mobileRafTick);
+    }
   };
 
   const updateMobileCardHeight = () => {
@@ -972,17 +980,13 @@ function setupPyramidJourney(useGsap) {
       end: mobilePinLength,
       pin: true,
       pinSpacing: true,
-      // scrub maior garante janela suficiente para o stepwise percorrer todas as 7 etapas
-      // (7 etapas × 80ms cooldown = 560ms < 900ms scrub window)
-      scrub: 0.9,
+        scrub: 1.2,
       anticipatePin: 2,
-      // NÃO usar fastScrollEnd: ele força o scrub a completar instantaneamente na
-      // rolagem rápida, interrompendo os onUpdate que o stepwise precisa
       invalidateOnRefresh: true,
       onUpdate: (self) => {
         const progress = self.progress;
         const eased = progress * progress * (3 - 2 * progress);
-        setActiveLevelStepwise(levelByProgress(progress));
+        triggerMobileStep(levelByProgress(progress));
 
         if (visualGroup) {
           const track = eased * (stageCenters.length - 1);
@@ -1009,6 +1013,11 @@ function setupPyramidJourney(useGsap) {
         });
       },
       onLeaveBack: () => {
+        if (mobileRafId) {
+          cancelAnimationFrame(mobileRafId);
+          mobileRafId = null;
+        }
+        mobileTargetLevel = 1;
         setActiveLevel('1');
         if (visualGroup) {
           gsap.set(visualGroup, { y: 28, scale: 1, transformOrigin: '50% 88%' });
@@ -1025,7 +1034,7 @@ function setupPyramidJourney(useGsap) {
       const start = section.offsetTop - (window.innerHeight * 0.22);
       const range = window.innerHeight * 2.25;
       const progress = (window.scrollY - start) / range;
-      setActiveLevelStepwise(levelByProgress(Math.max(0, Math.min(1, progress))));
+      triggerMobileStep(levelByProgress(Math.max(0, Math.min(1, progress))));
       return;
     }
 
