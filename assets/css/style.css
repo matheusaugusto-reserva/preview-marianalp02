@@ -2035,14 +2035,10 @@ em { font-style: italic; color: var(--accent); }
   .pyramid-card {
     position: relative;
     width: 100%;
-    opacity: 1;
-    visibility: visible;
-    transform: none !important;
-    margin-bottom: 12px;
+    margin-bottom: 0;
   }
 
   .pyramid-card.is-past {
-    opacity: 0.7;
     transform: none !important;
   }
 
@@ -5978,55 +5974,64 @@ section.blueprint .section-header p {
 }
 
 /* =====================================================
-   PYRAMID MOBILE HORIZONTAL FLOW V6.12
+   PYRAMID MOBILE CARD TRANSITIONS V6.12B
+   Clean fade-only approach — no slide, no layout conflicts
    ===================================================== */
 @media (max-width: 820px) {
+  section.pyramid-journey .pyramid-journey__story {
+    height: auto !important;
+  }
+
+  section.pyramid-journey .pyramid-stage,
+  section.pyramid-journey .pyramid-stage__sticky {
+    height: auto !important;
+  }
+
   section.pyramid-journey .pyramid-stage__sticky {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    gap: 18px !important;
+    gap: 14px !important;
   }
 
   section.pyramid-journey .pyramid-visual {
-    width: min(520px, 100%) !important;
+    width: min(460px, 96%) !important;
   }
 
   section.pyramid-journey .pyramid-cards {
     position: relative !important;
     width: min(620px, 100%) !important;
     align-self: center !important;
-    overflow: hidden !important;
     padding-left: 0 !important;
     margin-top: 2px !important;
+    overflow: hidden !important;
   }
 
   section.pyramid-journey .pyramid-card {
     position: absolute !important;
-    inset: 0 !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
     width: 100% !important;
     margin: 0 !important;
-    opacity: 0.08 !important;
-    visibility: visible !important;
-    transform: translateX(106%) scale(0.96) !important;
-    /* transição mais rápida para combinar com o ritmo do scroll mobile (cooldown 80ms);
-       ainda fluida, mas cada card slide completa antes do próximo já estar pela metade */
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: none !important;
     transition:
-      opacity 0.28s ease,
-      transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.25s ease !important;
+      opacity 0.4s ease,
+      visibility 0.4s ease !important;
     pointer-events: none !important;
   }
 
   section.pyramid-journey .pyramid-card.is-active {
     opacity: 1 !important;
-    transform: translateX(0) scale(1) !important;
+    visibility: visible !important;
     pointer-events: auto !important;
   }
 
   section.pyramid-journey .pyramid-card.is-past {
-    opacity: 0.08 !important;
-    transform: translateX(-106%) scale(0.96) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
     pointer-events: none !important;
   }
 
@@ -6040,51 +6045,9 @@ section.blueprint .section-header p {
   }
 }
 
-/* =====================================================
-   PYRAMID MOBILE PIN LAYOUT V6.13
-   Desktop unchanged; mobile mirrors pinned desktop behavior
-   ===================================================== */
-@media (max-width: 820px) {
-  section.pyramid-journey .pyramid-journey__story {
-    height: min(780px, 90vh) !important;
-  }
-
-  section.pyramid-journey .pyramid-stage,
-  section.pyramid-journey .pyramid-stage__sticky {
-    height: 100% !important;
-  }
-
-  section.pyramid-journey .pyramid-stage__sticky {
-    display: grid !important;
-    grid-template-rows: auto minmax(180px, 1fr) !important;
-    align-items: start !important;
-    justify-items: center !important;
-    gap: 14px !important;
-  }
-
-  section.pyramid-journey .pyramid-visual {
-    width: min(460px, 96%) !important;
-    max-height: 52vh !important;
-  }
-
-  section.pyramid-journey .pyramid-cards {
-    width: min(620px, 100%) !important;
-    min-height: 170px !important;
-  }
-}
-
 @media (max-width: 560px) {
-  section.pyramid-journey .pyramid-journey__story {
-    height: min(760px, 88vh) !important;
-  }
-
   section.pyramid-journey .pyramid-visual {
     width: min(400px, 100%) !important;
-    max-height: 46vh !important;
-  }
-
-  section.pyramid-journey .pyramid-cards {
-    min-height: 180px !important;
   }
 }
 

@@ -968,7 +968,7 @@ function setupPyramidJourney(useGsap) {
     }
 
     /* mobile: keep pyramid pinned while cards switch below it */
-    const mobilePinLength = () => `+=${window.innerHeight * (totalLevels * 0.74 + 0.8)}`;
+    const mobilePinLength = () => `+=${window.innerHeight * (totalLevels * 1.1 + 1.0)}`;
     const stageCenters = [475, 407, 338, 270, 201, 133, 66];
 
     ScrollTrigger.create({
@@ -977,14 +977,8 @@ function setupPyramidJourney(useGsap) {
       end: mobilePinLength,
       pin: true,
       pinSpacing: true,
-      scrub: 0.6,
+      scrub: 1,
       anticipatePin: 2,
-      snap: {
-        snapTo: 1 / (totalLevels - 1),
-        duration: { min: 0.18, max: 0.42 },
-        delay: 0,
-        ease: 'power1.inOut',
-      },
       invalidateOnRefresh: true,
       onUpdate: (self) => {
         const progress = self.progress;
