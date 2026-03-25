@@ -5357,15 +5357,18 @@ section.blueprint .container {
 
 /* =====================================================
    PYRAMID SCROLL FLUIDITY FIX V6.30
-   Reduce stutter when entering pinned section
+   Reduce stutter when entering pinned section (desktop only)
+   On mobile, excessive GPU layers cause scroll jank
    ===================================================== */
-section.pyramid-journey .pyramid-stage__sticky,
-section.pyramid-journey .pyramid-visual-group,
-section.pyramid-journey .pyramid-cards,
-section.pyramid-journey .pyramid-card {
-  will-change: transform, opacity;
-  transform: translateZ(0);
-  backface-visibility: hidden;
+@media (min-width: 821px) {
+  section.pyramid-journey .pyramid-stage__sticky,
+  section.pyramid-journey .pyramid-visual-group,
+  section.pyramid-journey .pyramid-cards,
+  section.pyramid-journey .pyramid-card {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
 }
 
 /* =====================================================
@@ -6296,22 +6299,22 @@ section.blueprint .container {
    ===================================================== */
 @media (max-width: 820px) {
   section.pyramid-journey .pyramid-layer-num {
-    font-size: 13.5px !important;
+    font-size: 17px !important;
   }
 
   section.pyramid-journey .pyramid-layer-name {
-    font-size: 12px !important;
+    font-size: 15px !important;
     font-weight: 600 !important;
   }
 }
 
 @media (max-width: 560px) {
   section.pyramid-journey .pyramid-layer-num {
-    font-size: 12.5px !important;
+    font-size: 15px !important;
   }
 
   section.pyramid-journey .pyramid-layer-name {
-    font-size: 11px !important;
+    font-size: 13.5px !important;
   }
 }
 
@@ -6540,6 +6543,10 @@ section.about .about__photo-fallback {
   .hero__title {
     margin-left: auto !important;
     margin-right: auto !important;
+    max-width: 22ch !important;
+    font-size: clamp(1.66rem, 5.7vw, 2.06rem) !important;
+    line-height: 1.2 !important;
+    text-wrap: balance !important;
   }
 
   .hero__cta {
@@ -6554,6 +6561,12 @@ section.about .about__photo-fallback {
 @media (max-width: 560px) {
   .hero {
     padding-top: clamp(270px, 88vw, 450px) !important;
+  }
+
+  .hero__title {
+    max-width: 21ch !important;
+    font-size: clamp(1.48rem, 6.3vw, 1.82rem) !important;
+    line-height: 1.22 !important;
   }
 }
 

@@ -886,9 +886,6 @@ function setupPyramidJourney(useGsap) {
 
     if (maxHeight > 0) {
       cardsWrap.style.height = `${Math.ceil(maxHeight + 8)}px`;
-      if (window.ScrollTrigger && typeof window.ScrollTrigger.refresh === 'function') {
-        window.ScrollTrigger.refresh();
-      }
     }
   };
 
@@ -980,13 +977,19 @@ function setupPyramidJourney(useGsap) {
       end: mobilePinLength,
       pin: true,
       pinSpacing: true,
-        scrub: 1.2,
+      scrub: 0.6,
       anticipatePin: 2,
+      snap: {
+        snapTo: 1 / (totalLevels - 1),
+        duration: { min: 0.18, max: 0.42 },
+        delay: 0,
+        ease: 'power1.inOut',
+      },
       invalidateOnRefresh: true,
       onUpdate: (self) => {
         const progress = self.progress;
         const eased = progress * progress * (3 - 2 * progress);
-        triggerMobileStep(levelByProgress(progress));
+        setActiveLevel(levelByProgress(progress));
 
         if (visualGroup) {
           const track = eased * (stageCenters.length - 1);
@@ -1013,11 +1016,6 @@ function setupPyramidJourney(useGsap) {
         });
       },
       onLeaveBack: () => {
-        if (mobileRafId) {
-          cancelAnimationFrame(mobileRafId);
-          mobileRafId = null;
-        }
-        mobileTargetLevel = 1;
         setActiveLevel('1');
         if (visualGroup) {
           gsap.set(visualGroup, { y: 28, scale: 1, transformOrigin: '50% 88%' });
