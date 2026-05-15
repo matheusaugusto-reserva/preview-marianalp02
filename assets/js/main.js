@@ -1,4 +1,5 @@
 ﻿document.addEventListener('DOMContentLoaded', () => {
+  setupLetterRevealContent();
   setupFaqAccordion();
   setupSmoothAnchors();
   setupBlueprintDottedSurface();
@@ -10,6 +11,7 @@
     window.gsap.registerPlugin(window.ScrollTrigger);
     setupHeroAnimation();
     setupScrollRevealGsap();
+    setupLetterRevealGsap();
     setupTransformationShowcase(true);
     setupDecorativeMotion();
     setupEngineInteractions(true);
@@ -18,10 +20,65 @@
   }
 
   setupScrollRevealFallback();
+  setupLetterRevealFallback();
   setupTransformationShowcase(false);
   setupEngineInteractions(false);
   setupPyramidJourney(false);
 });
+
+function setupLetterRevealContent() {
+  const targets = document.querySelectorAll('[data-letter-reveal]');
+
+  targets.forEach((target) => {
+    if (target.dataset.lettersReady === 'true') {
+      return;
+    }
+
+    target.setAttribute('aria-label', target.textContent.trim());
+    wrapLetterRevealText(target);
+    target.dataset.lettersReady = 'true';
+  });
+}
+
+function wrapLetterRevealText(node) {
+  Array.from(node.childNodes).forEach((child) => {
+    if (child.nodeType === Node.TEXT_NODE) {
+      const fragment = document.createDocumentFragment();
+
+      child.textContent.split(/(\s+)/).forEach((token) => {
+        if (!token) {
+          return;
+        }
+
+        if (/^\s+$/.test(token)) {
+          fragment.appendChild(document.createTextNode(token));
+          return;
+        }
+
+        const word = document.createElement('span');
+        word.className = 'word';
+        word.setAttribute('aria-hidden', 'true');
+
+        Array.from(token).forEach((character) => {
+          const span = document.createElement('span');
+          span.className = 'char';
+          span.setAttribute('aria-hidden', 'true');
+          span.textContent = character;
+          word.appendChild(span);
+        });
+
+        fragment.appendChild(word);
+      });
+
+      child.parentNode.replaceChild(fragment, child);
+      return;
+    }
+
+    if (child.nodeType === Node.ELEMENT_NODE) {
+      wrapLetterRevealText(child);
+    }
+  });
+}
 
 function setupFaqAccordion() {
   const faqItems = document.querySelectorAll('.faq__item');
@@ -163,6 +220,77 @@ function setupScrollRevealFallback() {
     });
   }, {
     threshold: 0.15,
+    rootMargin: '0px 0px -30px 0px',
+  });
+
+  elements.forEach((element) => observer.observe(element));
+}
+
+function setupLetterRevealGsap() {
+  const gsap = window.gsap;
+
+  gsap.utils.toArray('[data-letter-reveal]').forEach((element) => {
+    const chars = element.querySelectorAll('.char');
+    if (!chars.length) {
+      return;
+    }
+
+    gsap.set(chars, {
+      opacity: 0,
+      y: 18,
+      scale: 0.96,
+      filter: 'blur(3px)',
+    });
+
+    const timeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: element,
+        start: 'top 88%',
+        end: 'bottom 62%',
+        scrub: 0.35,
+      },
+    });
+
+    timeline.to(chars, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      filter: 'blur(0px)',
+      ease: 'none',
+      stagger: {
+        each: 0.02,
+        from: 'start',
+      },
+      onStart: () => element.classList.add('is-visible'),
+    });
+  });
+}
+
+function setupLetterRevealFallback() {
+  const elements = document.querySelectorAll('[data-letter-reveal]');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) {
+        return;
+      }
+
+      const chars = Array.from(entry.target.querySelectorAll('.char'));
+      entry.target.classList.add('is-visible');
+
+      chars.forEach((char, index) => {
+        window.setTimeout(() => {
+          char.style.transition = 'opacity 0.38s ease, transform 0.38s cubic-bezier(0.22,1,0.36,1), filter 0.38s ease';
+          char.style.opacity = '1';
+          char.style.transform = 'translate3d(0, 0, 0) scale(1)';
+          char.style.filter = 'blur(0)';
+        }, index * 16);
+      });
+
+      observer.unobserve(entry.target);
+    });
+  }, {
+    threshold: 0.2,
     rootMargin: '0px 0px -30px 0px',
   });
 

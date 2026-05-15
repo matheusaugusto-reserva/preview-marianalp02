@@ -370,12 +370,12 @@ em { font-style: italic; color: var(--accent); }
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: 7px;
   background: rgba(236,228,214,0.08);
   border: 1px solid rgba(236,228,214,0.26);
   border-radius: var(--radius-full);
-  padding: 10px 18px;
-  font-size: 0.7rem;
+  padding: 14px 24px;
+  font-size: 0.84rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -387,17 +387,17 @@ em { font-style: italic; color: var(--accent); }
 .hero__badge-main {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .hero__badge-sub {
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   letter-spacing: 0.06em;
 }
 
 .hero__badge-dot {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: var(--accent);
   box-shadow: 0 0 8px rgba(197,165,90,0.7);
@@ -529,6 +529,71 @@ em { font-style: italic; color: var(--accent); }
 .section-footnote strong { color: var(--accent); }
 
 .center-cta { text-align: center; margin-top: 44px; }
+
+.transformation__footnote {
+  max-width: 820px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.transformation__footnote-card {
+  position: relative;
+  margin-top: 34px;
+  padding: 34px 36px;
+  border-radius: 30px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.96) 0%, rgba(247,242,235,0.94) 100%);
+  border: 1px solid rgba(197,165,90,0.28);
+  box-shadow:
+    0 24px 60px rgba(46,65,87,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.72);
+  font-size: clamp(1.18rem, 1rem + 0.55vw, 1.52rem);
+  line-height: 1.9;
+  color: #304255;
+  text-wrap: pretty;
+}
+
+.transformation__footnote-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at top right, rgba(197,165,90,0.18), transparent 30%),
+    linear-gradient(180deg, rgba(255,255,255,0.28), transparent 38%);
+}
+
+.transformation__footnote-card strong {
+  color: #9f7a2c;
+}
+
+.transformation__footnote-card .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translate3d(0, 18px, 0) scale(0.96);
+  filter: blur(3px);
+  will-change: transform, opacity, filter;
+}
+
+.transformation__footnote-card .word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.transformation__footnote-card.is-visible .char {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+}
+
+@media (max-width: 640px) {
+  .transformation__footnote-card {
+    padding: 26px 22px;
+    border-radius: 24px;
+    line-height: 1.78;
+  }
+}
 
 /* =====================================================
    PAIN POINTS
@@ -6533,12 +6598,13 @@ section.about .about__photo-fallback {
     display: inline-flex !important;
     margin-left: auto !important;
     margin-right: auto !important;
-    padding: 9px 14px !important;
-    gap: 4px !important;
+    padding: 11px 18px !important;
+    gap: 5px !important;
+    font-size: 0.76rem !important;
   }
 
   .hero__badge-sub {
-    font-size: 0.56rem !important;
+    font-size: 0.62rem !important;
     letter-spacing: 0.05em !important;
   }
 }
